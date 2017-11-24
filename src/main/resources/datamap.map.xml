@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/9/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/9/modelMap http://cayenne.apache.org/schema/9/modelMap.xsd"
+	 project-version="9">
+	<property name="defaultPackage" value="com.megapapa.migorator.entity"/>
+	<db-entity name="comment" catalog="migorator">
+		<db-attribute name="database_dump_id" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="databases_id" type="BIGINT" isMandatory="true" length="10"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="text" type="LONGVARCHAR" isMandatory="true" length="2147483647"/>
+	</db-entity>
+	<db-entity name="company" catalog="migorator">
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="user_id" type="INTEGER" isMandatory="true" length="10"/>
+	</db-entity>
+	<db-entity name="company_databases" catalog="migorator">
+		<db-attribute name="company_id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="databases_id" type="BIGINT" isPrimaryKey="true" isMandatory="true" length="10"/>
+	</db-entity>
+	<db-entity name="company_invite" catalog="migorator">
+		<db-attribute name="company_id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="isAccepted" type="BIT" isMandatory="true"/>
+		<db-attribute name="users_id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+	</db-entity>
+	<db-entity name="database_dump" catalog="migorator">
+		<db-attribute name="databases_id" type="BIGINT" isMandatory="true" length="10"/>
+		<db-attribute name="dump_name" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+	</db-entity>
+	<db-entity name="database_stamp" catalog="migorator">
+		<db-attribute name="databases_id" type="BIGINT" isMandatory="true" length="10"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="timestamp" type="DATE" isMandatory="true" length="10"/>
+	</db-entity>
+	<db-entity name="databases" catalog="migorator">
+		<db-attribute name="database_name" type="VARCHAR" isMandatory="true" length="60"/>
+		<db-attribute name="database_type" type="VARCHAR" isMandatory="true" length="60"/>
+		<db-attribute name="id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="users_id" type="INTEGER" isMandatory="true" length="10"/>
+	</db-entity>
+	<db-entity name="user" catalog="migorator">
+		<db-attribute name="email" type="VARCHAR" isMandatory="true" length="80"/>
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="password" type="VARCHAR" isMandatory="true" length="255"/>
+		<db-attribute name="username" type="VARCHAR" isMandatory="true" length="255"/>
+	</db-entity>
+	<db-entity name="user_role" catalog="migorator">
+		<db-attribute name="id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="role_name" type="VARCHAR" length="45"/>
+	</db-entity>
+	<db-entity name="user_role_has_users" catalog="migorator">
+		<db-attribute name="user_role_id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="users_id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+	</db-entity>
+	<db-entity name="users_has_company" catalog="migorator">
+		<db-attribute name="company_id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+		<db-attribute name="users_id" type="INTEGER" isPrimaryKey="true" isMandatory="true" length="10"/>
+	</db-entity>
+	<obj-entity name="Comment" className="com.megapapa.migorator.entity.Comment" dbEntityName="comment">
+		<obj-attribute name="text" type="java.lang.String" db-attribute-path="text"/>
+	</obj-entity>
+	<obj-entity name="Company" className="com.megapapa.migorator.entity.Company" dbEntityName="company">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+	</obj-entity>
+	<obj-entity name="CompanyInvite" className="com.megapapa.migorator.entity.CompanyInvite" dbEntityName="company_invite">
+		<obj-attribute name="isAccepted" type="boolean" db-attribute-path="isAccepted"/>
+	</obj-entity>
+	<obj-entity name="DatabaseDump" className="com.megapapa.migorator.entity.DatabaseDump" dbEntityName="database_dump">
+		<obj-attribute name="dumpName" type="java.lang.String" db-attribute-path="dump_name"/>
+	</obj-entity>
+	<obj-entity name="DatabaseStamp" className="com.megapapa.migorator.entity.DatabaseStamp" dbEntityName="database_stamp">
+		<obj-attribute name="timestamp" type="java.time.LocalDate" db-attribute-path="timestamp"/>
+	</obj-entity>
+	<obj-entity name="Databases" className="com.megapapa.migorator.entity.Databases" dbEntityName="databases">
+		<obj-attribute name="databaseName" type="java.lang.String" db-attribute-path="database_name"/>
+		<obj-attribute name="databaseType" type="java.lang.String" db-attribute-path="database_type"/>
+	</obj-entity>
+	<obj-entity name="User" className="com.megapapa.migorator.entity.User" dbEntityName="user">
+		<obj-attribute name="email" type="java.lang.String" db-attribute-path="email"/>
+		<obj-attribute name="password" type="java.lang.String" db-attribute-path="password"/>
+		<obj-attribute name="username" type="java.lang.String" db-attribute-path="username"/>
+	</obj-entity>
+	<obj-entity name="UserRole" className="com.megapapa.migorator.entity.UserRole" dbEntityName="user_role">
+		<obj-attribute name="roleName" type="java.lang.String" db-attribute-path="role_name"/>
+	</obj-entity>
+	<db-relationship name="databaseDump" source="comment" target="database_dump" toMany="false">
+		<db-attribute-pair source="database_dump_id" target="id"/>
+	</db-relationship>
+	<db-relationship name="databases" source="comment" target="databases" toMany="false">
+		<db-attribute-pair source="databases_id" target="id"/>
+	</db-relationship>
+	<db-relationship name="companyDatabaseses" source="company" target="company_databases" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="company_id"/>
+	</db-relationship>
+	<db-relationship name="user" source="company" target="user" toMany="false">
+		<db-attribute-pair source="user_id" target="id"/>
+	</db-relationship>
+	<db-relationship name="usersHasCompanies" source="company" target="users_has_company" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="company_id"/>
+	</db-relationship>
+	<db-relationship name="company" source="company_databases" target="company" toMany="false">
+		<db-attribute-pair source="company_id" target="id"/>
+	</db-relationship>
+	<db-relationship name="databases" source="company_databases" target="databases" toMany="false">
+		<db-attribute-pair source="databases_id" target="id"/>
+	</db-relationship>
+	<db-relationship name="company" source="company_invite" target="company" toMany="false">
+		<db-attribute-pair source="company_id" target="id"/>
+	</db-relationship>
+	<db-relationship name="users" source="company_invite" target="user" toMany="false">
+		<db-attribute-pair source="users_id" target="id"/>
+	</db-relationship>
+	<db-relationship name="comments" source="database_dump" target="comment" toMany="true">
+		<db-attribute-pair source="id" target="database_dump_id"/>
+	</db-relationship>
+	<db-relationship name="databases" source="database_dump" target="databases" toMany="false">
+		<db-attribute-pair source="databases_id" target="id"/>
+	</db-relationship>
+	<db-relationship name="databases" source="database_stamp" target="databases" toMany="false">
+		<db-attribute-pair source="databases_id" target="id"/>
+	</db-relationship>
+	<db-relationship name="comments" source="databases" target="comment" toMany="true">
+		<db-attribute-pair source="id" target="databases_id"/>
+	</db-relationship>
+	<db-relationship name="companyDatabaseses" source="databases" target="company_databases" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="databases_id"/>
+	</db-relationship>
+	<db-relationship name="databaseDumps" source="databases" target="database_dump" toMany="true">
+		<db-attribute-pair source="id" target="databases_id"/>
+	</db-relationship>
+	<db-relationship name="databaseStamps" source="databases" target="database_stamp" toMany="true">
+		<db-attribute-pair source="id" target="databases_id"/>
+	</db-relationship>
+	<db-relationship name="users" source="databases" target="user" toMany="false">
+		<db-attribute-pair source="users_id" target="id"/>
+	</db-relationship>
+	<db-relationship name="companies" source="user" target="company" toMany="true">
+		<db-attribute-pair source="id" target="user_id"/>
+	</db-relationship>
+	<db-relationship name="companyInvites" source="user" target="company_invite" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="users_id"/>
+	</db-relationship>
+	<db-relationship name="databaseses" source="user" target="databases" toMany="true">
+		<db-attribute-pair source="id" target="users_id"/>
+	</db-relationship>
+	<db-relationship name="userRoleHasUserss" source="user" target="user_role_has_users" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="users_id"/>
+	</db-relationship>
+	<db-relationship name="usersHasCompanies" source="user" target="users_has_company" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="users_id"/>
+	</db-relationship>
+	<db-relationship name="userRoleHasUserss" source="user_role" target="user_role_has_users" toDependentPK="true" toMany="true">
+		<db-attribute-pair source="id" target="user_role_id"/>
+	</db-relationship>
+	<db-relationship name="userRole" source="user_role_has_users" target="user_role" toMany="false">
+		<db-attribute-pair source="user_role_id" target="id"/>
+	</db-relationship>
+	<db-relationship name="users" source="user_role_has_users" target="user" toMany="false">
+		<db-attribute-pair source="users_id" target="id"/>
+	</db-relationship>
+	<db-relationship name="company" source="users_has_company" target="company" toMany="false">
+		<db-attribute-pair source="company_id" target="id"/>
+	</db-relationship>
+	<db-relationship name="users" source="users_has_company" target="user" toMany="false">
+		<db-attribute-pair source="users_id" target="id"/>
+	</db-relationship>
+	<obj-relationship name="databaseDump" source="Comment" target="DatabaseDump" deleteRule="Nullify" db-relationship-path="databaseDump"/>
+	<obj-relationship name="databases" source="Comment" target="Databases" deleteRule="Nullify" db-relationship-path="databases"/>
+	<obj-relationship name="databaseses" source="Company" target="Databases" db-relationship-path="companyDatabaseses.databases"/>
+	<obj-relationship name="user" source="Company" target="User" deleteRule="Nullify" db-relationship-path="user"/>
+	<obj-relationship name="company" source="CompanyInvite" target="Company" deleteRule="Nullify" db-relationship-path="company"/>
+	<obj-relationship name="users" source="CompanyInvite" target="User" deleteRule="Nullify" db-relationship-path="users"/>
+	<obj-relationship name="comments" source="DatabaseDump" target="Comment" deleteRule="Deny" db-relationship-path="comments"/>
+	<obj-relationship name="databases" source="DatabaseDump" target="Databases" deleteRule="Nullify" db-relationship-path="databases"/>
+	<obj-relationship name="databases" source="DatabaseStamp" target="Databases" deleteRule="Nullify" db-relationship-path="databases"/>
+	<obj-relationship name="comments" source="Databases" target="Comment" deleteRule="Deny" db-relationship-path="comments"/>
+	<obj-relationship name="companies" source="Databases" target="Company" db-relationship-path="companyDatabaseses.company"/>
+	<obj-relationship name="databaseDumps" source="Databases" target="DatabaseDump" deleteRule="Deny" db-relationship-path="databaseDumps"/>
+	<obj-relationship name="databaseStamps" source="Databases" target="DatabaseStamp" deleteRule="Deny" db-relationship-path="databaseStamps"/>
+	<obj-relationship name="users" source="Databases" target="User" deleteRule="Nullify" db-relationship-path="users"/>
+	<obj-relationship name="companies" source="User" target="Company" deleteRule="Deny" db-relationship-path="companies"/>
+	<obj-relationship name="companyInvites" source="User" target="CompanyInvite" deleteRule="Deny" db-relationship-path="companyInvites"/>
+	<obj-relationship name="databaseses" source="User" target="Databases" deleteRule="Deny" db-relationship-path="databaseses"/>
+</data-map>
