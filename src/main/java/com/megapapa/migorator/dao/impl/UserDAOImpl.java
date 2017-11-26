@@ -4,6 +4,7 @@ import com.megapapa.migorator.dao.UserDAO;
 import com.megapapa.migorator.entity.User;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.configuration.server.ServerRuntime;
+import org.apache.cayenne.query.ObjectSelect;
 import org.apache.cayenne.query.SelectById;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -32,6 +33,12 @@ public class UserDAOImpl implements UserDAO {
     public User getUserById(int id) {
         ObjectContext context = runtime.newContext();
         return SelectById.query(User.class, id).selectFirst(context);
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        ObjectContext context = runtime.newContext();
+        return ObjectSelect.query(User.class).where(User.EMAIL.eq(email)).selectOne(context);
     }
 
     @Override

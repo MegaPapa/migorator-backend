@@ -20,7 +20,13 @@ public class UserController {
 
     @RequestMapping("/profile/{id}")
     @ResponseBody
-    public void getUser(@PathVariable("id") int id) {
-        UserDTO user = userService.getUser(id);
+    public UserDTO getUser(@PathVariable("id") int id) {
+        return userService.getUser(id);
+    }
+
+    @RequestMapping("/profile-get-token/{email}")
+    @ResponseBody
+    public UserDTO getUser(@PathVariable("email") String email) {
+        return userService.getUser(email);
     }
 }

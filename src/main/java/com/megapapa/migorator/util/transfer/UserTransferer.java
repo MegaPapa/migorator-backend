@@ -8,6 +8,7 @@ public class UserTransferer {
     public static UserDTO toDTO(User user) {
         UserDTO userDTO = new UserDTO();
         userDTO.setEmail(user.getEmail());
+        userDTO.setId(1); // TODO: GET ID FROM OBJECT!!!
         userDTO.setUserName(user.getUsername());
         return userDTO;
     }
