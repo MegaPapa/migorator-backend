@@ -32,7 +32,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .requestMatchers()
                 .and()
                 .authorizeRequests()
-                .antMatchers( "/", "/image/default/**").permitAll()
+                .antMatchers( "/signup", "/image/default/**").permitAll()
                 .anyRequest().authenticated();
     }
 }

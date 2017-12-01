@@ -7,16 +7,19 @@ import org.apache.cayenne.configuration.server.ServerRuntime;
 import org.apache.cayenne.query.ObjectSelect;
 import org.apache.cayenne.query.SelectById;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
 
     private final ServerRuntime runtime;
+    private final ShaPasswordEncoder shaPasswordEncoder;
 
     @Autowired
-    public UserDAOImpl(ServerRuntime runtime) {
+    public UserDAOImpl(ServerRuntime runtime, ShaPasswordEncoder shaPasswordEncoder) {
         this.runtime = runtime;
+        this.shaPasswordEncoder = shaPasswordEncoder;
     }
 
     @Override
@@ -25,7 +28,7 @@ public class UserDAOImpl implements UserDAO {
         User addedUser = context.newObject(User.class);
         addedUser.setUsername(user.getUsername());
         addedUser.setEmail(user.getEmail());
-        addedUser.setPassword(user.getPassword());
+        addedUser.setPassword(shaPasswordEncoder.encodePassword(user.getPassword(), ""));
         context.commitChanges();
     }
 

@@ -2,13 +2,15 @@ package com.megapapa.migorator.util.transfer;
 
 import com.megapapa.migorator.dto.UserDTO;
 import com.megapapa.migorator.entity.User;
+import com.megapapa.migorator.util.SingleKeyGetter;
 
 public class UserTransferer {
 
     public static UserDTO toDTO(User user) {
         UserDTO userDTO = new UserDTO();
         userDTO.setEmail(user.getEmail());
-        userDTO.setId(1); // TODO: GET ID FROM OBJECT!!!
+        user.getObjectId().getIdSnapshot();
+        userDTO.setId(SingleKeyGetter.getSingleKey(user.getObjectId()));
         userDTO.setUserName(user.getUsername());
         return userDTO;
     }

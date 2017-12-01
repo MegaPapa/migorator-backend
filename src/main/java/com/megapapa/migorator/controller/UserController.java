@@ -3,10 +3,7 @@ package com.megapapa.migorator.controller;
 import com.megapapa.migorator.dto.UserDTO;
 import com.megapapa.migorator.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -28,5 +25,15 @@ public class UserController {
     @ResponseBody
     public UserDTO getUser(@PathVariable("email") String email) {
         return userService.getUser(email);
+    }
+
+    @PostMapping("/signup")
+    public UserDTO signUp(@RequestBody UserDTO userDTO) {
+        final int userNamePiece = 0;
+        String email = userDTO.getEmail();
+        String[] emailPieces = email.split("\\@");
+        userDTO.setUserName(emailPieces[userNamePiece]);
+        userService.registerNewUser(userDTO);
+        return null;
     }
 }
